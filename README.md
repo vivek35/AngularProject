@@ -314,17 +314,14 @@ export class BodyComponent implements OnInit {
     		document.getElementById("title").innerHTML = "Welcome to Body using Event Binding";
     	}
 ```
-
 We have written code to change HTML content of h1 tag with id title. 
-Don’t get confused with id = title and {{title}}. Former is the identifier of h1 tag while the later is the variable used for databinding.  
+Don’t get confused with id = title and {{title}}. Former is the identifier of h1 tag while the later is the variable used for databinding.
+Now if you check the browser and click the button you will see title change from:    
 
-Now if you check the browser and click the button you will see title change from:   
 
 Welcome to Body
----  
-
-To  
-
+---
+To
 Welcome to Body using Event Binding
 ---
 
@@ -357,5 +354,132 @@ Try this it will work.
 You can get the list of events for event binding using following url:
 https://www.w3schools.com/jsref/dom_obj_event.asp
 
+### Directives
+There are three types of Angular Directives:  
+1.	Component Directives:   
+
+Component directives are responsible for how components should be processed , instantiated and used at runtime. All this can be done through class.     
+
+ For the components we have created till now navbar,footer,body if you open <component-name>.component.ts file you will find @Component directive and class.
+
+2.	Structural Directives:  
+Structural directives handles manipulating DOM elements. They have * sign before them.
+Example,  
+ *ngFor – Used as for loop
+*ngIf – Used as if , if else , if then else.
+    
+3.	Attribute Directives:
+With attribute directive you can change the look and behavior of DOM element.
+
+Let’s try creating simple custom directive to change font color of DOM element:  
+
+```bash
+$ ng g directive <directive-name>
+```
+	Example, 
+	```bash
+	$ ng g directive changecolor
+	```  
+Executing above command will create two files in side app directory:  
+
+1.change-color.directive.ts  
+
+2.change-color-directive.spec.ts  
+
+We will work with change-color.directive.ts and change-color.directive.ts will used for testing.
+If you check app.module.ts file changeColor directive will be imported and added in declaration variable.  
+app.module.ts  
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { BodyComponent } from './body/body.component';
+import { ChangeColorDirective } from './change-color.directive';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    BodyComponent,
+    ChangeColorDirective
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Let’s see what’s inside change-color.directive.ts:  
+```typescript
+import { Directive } from '@angular/core';
+
+@Directive({
+  selector: '[appChangeColor]'
+})
+export class ChangeColorDirective {
+constructor() {   }
+}
+```  
+Now the directive has selector property which is defined in selector variable. Using this selector we can define DOM element and make the changes.  
+body.component.html
+```html
+<div>
+ 	<span appChangeColor>Welcome to {{title}}.</span>
+</div>
+```
+We are going to change the color of Welcome to Body span element.  
+How do we do that?
+We will need ElemetRef property which will give us direct access to manipulate DOM element.  
+```typescript
+import { Directive,ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appChangeColor]'
+})
+export class ChangeColorDirective {
+constructor(Element: ElementRef) {
+  	console.log(Element);
+      Element.nativeElement.style="color:green";
+   }
+}  
+```   
+ 
+Now you check the localhost:4200/#  
+Welcome to Body(will be in green)  
 
 
+But if you use ElementRef to manipulate DOM elements can be vulnerable. As per angular site:  
+```
+Use this API as the last resort when direct access to DOM is needed. Use templating and data-binding provided by Angular instead. Alternatively you can take a look at Renderer2 which provides API that can safely be used even when direct access to native elements is not supported.  
+
+
+Relying on direct DOM access creates tight coupling between your application and rendering layers which will make it impossible to separate the two and deploy your application into a web worker.
+```  
+
+
+We can use renderer to manipulate DOM elements safely. As we are changing CSS property only we will make use of setStyle:
+
+body.component.ts:
+```typescript
+import { Directive,ElementRef, Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[appChangeColor]'
+})
+export class ChangeColorDirective {
+ constructor(
+    private Element: ElementRef,
+    private renderer: Renderer2
+  ) { 
+  	this.renderer.setStyle(this.Element.nativeElement, 'color', 'blue');
+  }
+}
+```
+In the above code we have imported in Renderer2 Api, used it inside renderer variable then setStyle and passed element.nativeElement as parameter.
