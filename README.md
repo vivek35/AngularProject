@@ -483,3 +483,43 @@ export class ChangeColorDirective {
 }
 ```
 In the above code we have imported in Renderer2 Api, used it inside renderer variable then setStyle and passed element.nativeElement as parameter.
+
+### User Input  
+Example of Taking input from the user.
+We will create a textbox that will take username and display it in list format below textbox.
+We have created a new component sidebar. You can find how to create component in document above.
+-sidebar.component.html
+```html
+  <nav>
+   <div id="data">
+<label>Enter names: </label><input #box (keyup.enter)="addNames(box.value)" (blur)="addNames(box.value); box.value=''" type="textbox">
+	</div>
+	<div id="result">
+		<ul><li *ngFor="let name of names">{{name}}</li></ul>
+	</div>
+  </nav>
+```
+If you check the code we have #box in input type textbox.
+#box is called template reference variable. It often reference to DOM element within template.
+-sidebar.component.ts
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
+})
+export class SidebarComponent implements OnInit {
+   names = ["abc","cde"];
+	addNames(name: string) {
+		if(name){
+		   this.names.push(name);
+		}
+	}
+
+  constructor() { }
+ ngOnInit() {
+  }
+}```  
+We have used name array to store names entered in textbox using addNames function. 
