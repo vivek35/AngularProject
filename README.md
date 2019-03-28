@@ -3,12 +3,8 @@
 1.	NodeJS
 2.	Npm
 3.	Angular CLI
-<<<<<<< HEAD
-4.	IDE
-=======
 4.	IDE.  
   
->>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
 How to check node installed on your system:
 ```bash
 $ node -v
@@ -208,7 +204,7 @@ NgOnInit method is called by default when class is executed.
 In the same way we have created footer component.  
 
 
-#Data Binding
+### Data Binding
 
 Data binding is done using {{}} in <component-name>.component.html.   
 
@@ -281,24 +277,85 @@ If Else:
     </div>
 ```
 If then else:
-<<<<<<< HEAD
-=======
 
 ```html
->>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
 <div>
     	<span *ngIf="isAvailable;then condition1 else condition2">Condition is Valid</span>
     	<ng-template #condition1>Condition is valid</ng-template>
     	<ng-template #condition2>Condition is invalid</ng-template>
-<<<<<<< HEAD
-    </div>
-
-
-
-
-
-
-=======
 </div>
 ```
->>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
+### Event Binding
+Event binding is the interaction between user and DOM element.   
+Example, 
+If we have button on DOM , we can bind event on button click.  
+If we have drop down list , we can bind event on option change.  
+Etc.
+
+Let’s see an example of event binding on button click. 
+We have created a button in body.component.html that will change the title of the page.  
+```html
+<h1 id="title">Welcome to {{title}}</h1>
+<button (click) = "myFunction($event)">
+    	Change Title
+    </button>
+```
+(click) is an event and we are binding it to a function called myFunction($event) with parameter $event.  
+We have defined myFunction in body.component.ts as follows:  
+```typeScript
+export class BodyComponent implements OnInit {
+	title="Welcome to Body"
+	months = ["January", "Feburary", "March", "April", "May", 
+            "June", "July", "August", "September",
+            "October", "November", "December"];
+ isAvailable = true;
+
+    	myFunction(event){           /*We have used it in body.component.html on click event*/
+    		document.getElementById("title").innerHTML = "Welcome to Body using Event Binding";
+    	}
+```
+
+We have written code to change HTML content of h1 tag with id title. 
+Don’t get confused with id = title and {{title}}. Former is the identifier of h1 tag while the later is the variable used for databinding.  
+
+Now if you check the browser and click the button you will see title change from:   
+
+Welcome to Body
+---  
+
+To  
+
+Welcome to Body using Event Binding
+---
+
+You can also get the value of content in console or you can use alertbox with following changes in body.component.ts:
+
+```typeScript
+myFunction(event){
+    	console.log(event);
+	alert(“Button clicked”);
+    	}
+```
+You can have different events like change, keyup, keydown, keypress, mouseenter, mouseleave etc.  
+Let’s see one more example of event binding on changing dropdown option.  
+ body.component.html:
+```html
+<select (change) = onmonthchange($event)>
+    	<option *ngFor="let i of months">{{i}}</option>
+    </select>
+```
+We have used event change with function onmonthchange($event).  We have defined onmonthchange inside body.component.ts as follows:
+
+body.component.ts
+
+```typeScript
+onmonthchange(event){
+    	alert(“Month changed to “+event.target.value);
+    }
+```
+Try this it will work.
+You can get the list of events for event binding using following url:
+https://www.w3schools.com/jsref/dom_obj_event.asp
+
+
+
