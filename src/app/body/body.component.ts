@@ -19,6 +19,7 @@ export class BodyComponent implements OnInit {
     	console.log(event);
     	document.getElementById("title").innerHTML = "Welcome to Body using Event Binding"
     }
+    
     onmonthchange(event){
     	alert("Month changed to "+event.target.value);
     }

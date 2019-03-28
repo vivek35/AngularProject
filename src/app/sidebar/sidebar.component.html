@@ -1,0 +1,9 @@
+  <nav>
+   <div id="data">
+		<label>Enter names: </label><input #box (keyup.enter)="addNames(box.value)" (blur)="addNames(box.value); box.value=''" type="textbox">
+	</div>
+	<div id="result">
+		<ul><li *ngFor="let name of names">{{name}}</li></ul>
+	</div>
+	
+  </nav>
