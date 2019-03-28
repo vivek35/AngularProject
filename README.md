@@ -1,29 +1,47 @@
-#Angular 4 Basics:
+# Angular 4 Basics:
 4 things required  for Angular 4 setup:
 1.	NodeJS
 2.	Npm
 3.	Angular CLI
+<<<<<<< HEAD
 4.	IDE
+=======
+4.	IDE.  
+  
+>>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
 How to check node installed on your system:
+```bash
 $ node -v
+```
 How to install angular CLI on your system:
+```bash
 $ npm install -g @angular/cli
-
+```
 How to create project in angular:
+```bash
 $ ng new <app-name>
+```
+```bash
  $ cd <app-name>
+```
+```bash
 $ ng serve
+```
 
-#Folder Structure:
--e2e module: This is end to end test folder. This folder is used for integration testing and makes sure application works fine.
--node-modules – npm package is installed in this module. 
--src – This is the source folder of your application. We work with this when working on your application.
-- angular-cli.json – This file contain project_name, angular-cli version etc details.
--.editorconfig – This contains config of your editor
--.gitignore – This file contains files that should not be uploaded on git
--package.json – this file tells which libraries will be installed in node_modules when you run npm install.
--karma.conf.js – this file is used for unit testing via protractor. All information required for the project is provided in karma.conf.js.
-app.module.ts – This file has import statement for libraries which is imported by angular-CLI.
+### Folder Structure:  
+
+* e2e module: This is end to end test folder. This folder is used for integration testing and makes sure application works fine.
+
+* node-modules – npm package is installed in this module. 
+
+* src – This is the source folder of your application. We work with this when working on your application.
+* angular-cli.json – This file contain project_name, angular-cli version etc details.
+* .editorconfig – This contains config of your editor
+* .gitignore – This file contains files that should not be uploaded on git
+* package.json – this file tells which libraries will be installed in node_modules when you run npm install.
+* karma.conf.js – this file is used for unit testing via protractor. All information required for the project is provided in karma.conf.js.
+* app.module.ts – This file has import statement for libraries which is imported by angular-CLI.
+
 It also has variables like:
 1.	Declaration: It contains reference to the components in project. AppComponent is component which is created when project is initiated.
 2.	Imports: This will have all the modules which is imported. At present , it contains browserModule.
@@ -35,7 +53,8 @@ Every Component created has 5 files. Example appComponent
 2.	App.component.css: css defined in this file will be applicable to component defined in html file.
 3.	App.component.html : this HTML structure for the component.
 4.	App.component.spec.ts : This file is used for unit testing of component.
-5.	App.component.ts : The class for component is defined over here. You can do processing of HTML structure in .ts file. The processing will include activities  like connecting to database, interacting with other components , routing, services etc.
+5.	App.component.ts : The class for component is defined over here. You can do processing of HTML structure in .ts file. The processing will include activities  like connecting to database, interacting with other components , routing, services etc.  
+
 App.component.ts:
 ```typescript
 import { Component } from '@angular/core';
@@ -69,41 +88,69 @@ Index.html
    </body>
 </html>
 ```
-<app-root> is the selector we defined in app.component.ts
-Main.ts: It is the file from where we start our project development. It has  module which we need during development that is :
-Angular-core
-Platform-browser-dynamic
-App-component
-Environment
+<app-root> is the selector we defined in app.component.ts.  
+  
+Main.ts: It is the file from where we start our project development. It has  module which we need during development that is :  
 
--Environment:
-	-environment.prod.ts:
+1.Angular-core  
+
+2.Platform-browser-dynamic  
+
+3.App-component  
+
+4.Environment  
+
+
+* Environment
+
+1. environment.prod.ts:
+
+```typeScript
 export const environment = {
   production: true
 };
--Set production to true if you want to enable production mode.
-	-environment.ts
+```
+
+-Set production to true if you want to enable production mode.  
+
+2. environment.ts : 
+
+```bash
+	
 		export const environment = {
   			production: false
 };
--Set production to false if you want to do debugging or development.
+```
+-Set production to false if you want to do debugging or development.  
 
+### Creating New Component:
 
+Angular – cli:  
 
- 
-#Creating New Component:
-Angular – cli:
+```bash
 $ ng g component <component-name>
-This will create a component inside app folder. It will have five files as mentioned above.
-Example: I have created header and footer components:
+```
+
+This will create a component inside app folder. It will have five files as mentioned above.  
+
+Example: I have created header and footer components:  
+
+```bash
 $ ng g component navbar
-Now if you check app.module.ts file. Your component will be already added there.
-You will write your html code inside navbar.component.html file:
+```  
+
+Now if you check app.module.ts file. Your component will be already added there.  
+
+You will write your html code inside navbar.component.html file:  
+
 ```html
 <header>
   <h2>Cities</h2>
 </header>
+```
+
 You will write all your CSS code inside navbar.component.css file:
+```
 header {
   background-color: #666;
   padding: 30px;
@@ -112,7 +159,9 @@ header {
   color: white;
 }
 ```
+
 Then you will check navbar.component.ts file 
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 @Component({
@@ -126,15 +175,25 @@ constructor() { }
   }
 }
 ```
+
 there you will find:
-Selector: selector of the component which is to be added in app.component.html
-Example: In case of navbar it will be ‘app-navbar’
-templateUrl: HTML file associated component
+
+1.Selector: selector of the component which is to be added in app.component.html  
+
+Example: In case of navbar it will be ‘app-navbar’.  
+
+2. templateUrl: HTML file associated component.  
+
 Example: Incase of navbar it will be ‘navbar.component.html’
-styleUrls: CSS file associated with component
-Example: Incase of navbar it will be ‘navbar.component.css’
-We can also create new html and css file and provide the link of that file inside templateUrl and styleUrls
-You will also find the new class created with name of your component and it will have constructor and ngOnInit() method:
+
+3. styleUrls: CSS file associated with component.  
+
+Example: Incase of navbar it will be ‘navbar.component.css’.  
+
+We can also create new html and css file and provide the link of that file inside templateUrl and styleUrls.  
+
+You will also find the new class created with name of your component and it will have constructor and ngOnInit() method:  
+
 Example:
 ```typescript
 export class NavbarComponent implements OnInit {
@@ -143,18 +202,28 @@ export class NavbarComponent implements OnInit {
   }
 }
 ```
-NgOnInit method is called by default when class is executed.
-In the same way we have created footer component.
 
-#Data Binding:
-Data binding is done using {{}} in <component-name>.component.html. 
-You can declare variables in < component-name >.component.ts. 
-We will see the example with structural directives like *ngIf , *ngFor. 
+NgOnInit method is called by default when class is executed.  
+
+In the same way we have created footer component.  
+
+
+#Data Binding
+
+Data binding is done using {{}} in <component-name>.component.html.   
+
+You can declare variables in < component-name >.component.ts.   
+
+We will see the example with structural directives like *ngIf , *ngFor.   
+
 We will work on getting to know directives as the project goes on.
 
-So we have created a new component called body.
-In body.component.ts file we have following code:
-```typescript
+
+So we have created a new component called body.  
+
+In body.component.ts file we have following code:  
+
+```typeScript
 import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-body',
@@ -168,9 +237,11 @@ months = ["January", "Feburary", "March", "April", "May",
             "October", "November", "December"];
 constructor() { }
 ngOnInit() { }
-}```
-We have used two variables title and months in BodyComponent class which we will use in body.component.html.  
+}
+```
 
+We have used two variables title and months in BodyComponent class which we will use in body.component.html.   
+ 
 -body.component.html:
 ```html
 	<section>
@@ -210,10 +281,16 @@ If Else:
     </div>
 ```
 If then else:
+<<<<<<< HEAD
+=======
+
+```html
+>>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
 <div>
     	<span *ngIf="isAvailable;then condition1 else condition2">Condition is Valid</span>
     	<ng-template #condition1>Condition is valid</ng-template>
     	<ng-template #condition2>Condition is invalid</ng-template>
+<<<<<<< HEAD
     </div>
 
 
@@ -221,3 +298,7 @@ If then else:
 
 
 
+=======
+</div>
+```
+>>>>>>> e0fa666e87d2c6e665bc78e73e91273af51fa1d1
