@@ -14,10 +14,18 @@ export class BodyComponent implements OnInit {
             "October", "November", "December"];
     isAvailable = true;
 
+    myFunction(event){
+    	alert("Button clicked");
+    	console.log(event);
+    	document.getElementById("title").innerHTML = "Welcome to Body using Event Binding"
+    }
+    onmonthchange(event){
+    	alert("Month changed to "+event.target.value);
+    }
   constructor() { }
 
   ngOnInit() {
-
+  	
   }
 
 }
